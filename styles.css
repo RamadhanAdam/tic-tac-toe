@@ -43,6 +43,7 @@ pre{
     border-radius: 5px;
     font-family: monospace;
     overflow-x: auto;
-    margin : 10px;
+    margin : 10px auto; 
     width: 310px;
+    text-align: center;
 }
