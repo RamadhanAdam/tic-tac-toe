@@ -36,3 +36,13 @@ button{
     cursor: pointer;
     margin-top: 10px;
 }
+
+pre{
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    overflow-x: auto;
+    margin : 10px;
+    width: 310px;
+}
