@@ -14,15 +14,18 @@ cells.forEach((cell, index) => {
             cell.textContent = currentPlayer; // Display X or O
 
             if (checkWinner()) {
-                setTimeout(() => alert(currentPlayer + " wins!"), 100);
+                setTimeout(() => document.getElementById("pre").textContent = currentPlayer + " wins!"), 100
             } else if (!board.includes("")) {
-                setTimeout(() => alert("It's a draw!"), 100);
+                setTimeout(() => {
+                    document.getElementById("pre").textContent = "It's a draw";
+                }, 100);
             }
 
             currentPlayer = currentPlayer === "X"
                 ? "O"
                 : "X"; // Switch player
         }
+
     });
     function checkWinner() {
         const winPatterns = [
@@ -31,15 +34,15 @@ cells.forEach((cell, index) => {
             [0, 4, 8], [2, 4, 6]
         ];
 
-        return winPatterns.some( pattern =>
-            board[pattern[0]] && 
+        return winPatterns.some(pattern =>
+            board[pattern[0]] &&
             board[pattern[0]] === board[pattern[1]] &&
             board[pattern[1]] === board[pattern[2]]
         );
     }
 
-    document.getElementById("restart").addEventListener("click", () =>{
-        board = ["", "", "", "", "", "", "", "", ""]; 
+    document.getElementById("restart").addEventListener("click", () => {
+        board = ["", "", "", "", "", "", "", "", ""];
         cells.forEach(cell => cell.textContent)
         currentPlayer = "X"
     })
