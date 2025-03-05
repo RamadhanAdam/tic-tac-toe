@@ -1,34 +1,38 @@
 // Setting up vars
+let currentPlayer = "X";
+let board = ["", "", "", "", "", "", "", "", ""];
+let gameOver = false; // Prevent clicks after game ends
 
-let currentPlayer = "X"
-let board = ["", "", "", "", "", "", "", "", ""]
+// Selecting all cells
+const cells = document.querySelectorAll('.cell');
 
-//selecting all cells
-const cells = document.querySelectorAll('.cell')
-
-//handling clicks on cells
+// Handling clicks on cells
 cells.forEach((cell, index) => {
     cell.addEventListener("click", () => {
-        if (board[index] === "" && !checkWinner()) {
+        if (board[index] === "" && !gameOver) {
             board[index] = currentPlayer; // Update board state
             cell.textContent = currentPlayer; // Display X or O
 
-            if (checkWinner()) {
-                setTimeout(() => document.getElementById("pre").textContent = currentPlayer + " wins!"), 100
-            } else if (!board.includes("")) {
+            let winner = checkWinner(); // Get the winner
+            if (winner) {
+                gameOver = true; // Stop further moves
+                setTimeout(() => {
+                    document.getElementById("pre").textContent = winner + " wins!";
+                }, 100);
+            } else if (!board.includes("")) { // Check for draw
+                gameOver = true;
                 setTimeout(() => {
                     document.getElementById("pre").textContent = "It's a draw";
                 }, 100);
+            } else {
+                // Switch player only if no winner
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
             }
-
-            currentPlayer = currentPlayer === "X"
-                ? "O"
-                : "X"; 
         }
-
     });
 });
 
+// Function to check winner
 function checkWinner() {
     const winPatterns = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -36,16 +40,20 @@ function checkWinner() {
         [0, 4, 8], [2, 4, 6]
     ];
 
-    return winPatterns.some(pattern =>
-        board[pattern[0]] &&
-        board[pattern[0]] === board[pattern[1]] &&
-        board[pattern[1]] === board[pattern[2]]
-    );
+    for (let pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+            return board[a]; // Return the winning player ("X" or "O")
+        }
+    }
+    return null; // No winner yet
 }
 
+// Restart game button
 document.getElementById("restart").addEventListener("click", () => {
     board = ["", "", "", "", "", "", "", "", ""];
+    gameOver = false; // Reset game state
     cells.forEach(cell => cell.textContent = "");
     document.getElementById("pre").textContent = "";
-    currentPlayer = "X"
-})
+    currentPlayer = "X";
+});
