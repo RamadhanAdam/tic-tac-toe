@@ -23,7 +23,7 @@ cells.forEach((cell, index) => {
 
             currentPlayer = currentPlayer === "X"
                 ? "O"
-                : "X"; // Switch player
+                : "X"; 
         }
 
     });
