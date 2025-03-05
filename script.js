@@ -27,23 +27,25 @@ cells.forEach((cell, index) => {
         }
 
     });
-    function checkWinner() {
-        const winPatterns = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6]
-        ];
-
-        return winPatterns.some(pattern =>
-            board[pattern[0]] &&
-            board[pattern[0]] === board[pattern[1]] &&
-            board[pattern[1]] === board[pattern[2]]
-        );
-    }
-
-    document.getElementById("restart").addEventListener("click", () => {
-        board = ["", "", "", "", "", "", "", "", ""];
-        cells.forEach(cell => cell.textContent)
-        currentPlayer = "X"
-    })
 });
+
+function checkWinner() {
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ];
+
+    return winPatterns.some(pattern =>
+        board[pattern[0]] &&
+        board[pattern[0]] === board[pattern[1]] &&
+        board[pattern[1]] === board[pattern[2]]
+    );
+}
+
+document.getElementById("restart").addEventListener("click", () => {
+    board = ["", "", "", "", "", "", "", "", ""];
+    cells.forEach(cell => cell.textContent = "");
+    document.getElementById("pre").textContent = "";
+    currentPlayer = "X"
+})
